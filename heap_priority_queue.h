@@ -15,8 +15,6 @@ public:
     // return true if the priority queue is empty
     bool isEmpty();
 
-
-
     // insert item into the queue
     // may throw on allocation failure
     void add(const T& item);
@@ -28,16 +26,22 @@ public:
     // get the item with the highest priority from the queue
     // throws std::logic_error if queue is empty
     T peek();
+
+    // void display();
+    // void display(std::string callingPoint);
+
     
 private:
     int getRightChildIndex(const int n);
     int getLeftChildIndex(const int n);
     int getParentIndex(const int n);
-    bool isLeaf(const int nodeIndex);
-    bool swapWithParent(int childNodeIndex);
-    
-    
-    DynamicArrayList<T>* _list;
+    bool isLeaf(const int n);
+    int getLargestChildIndex(const int n);
+    void heapRebuild(const int i);
+    DynamicArrayList<T> _list;
+
+    int _heapSize = 0;
+
 
  
 

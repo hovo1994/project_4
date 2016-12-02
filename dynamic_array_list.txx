@@ -127,9 +127,11 @@ T DynamicArrayList<T>::getEntry(std::size_t position)
     // is it a valid position?
    if ((position >= 0) && (position < _size))
       return _data[position];
-   else
+   else 
    { // throw error if invalid error
-      throw std::range_error("getEnry() called at invalid position or with empty list"); 
+      //std::cout<<position<<std::endl;
+      //std::cout<<_size<<std::endl;
+      throw std::range_error("getEntry() called at invalid position or with empty list"); 
    }  // end if
 }
 
@@ -143,4 +145,15 @@ void DynamicArrayList<T>::setEntry(std::size_t position, const T& newValue)
    {
       throw std::range_error("setEntry() called with an empty list or invalid position"); 
    } 
+}
+
+template <typename T>
+T DynamicArrayList<T>::operator[](std::size_t index) const
+{
+  if(index >= 0 && index <= _size-1)
+    return _data[index];
+  else
+  {
+    throw std::range_error("Entry reference greater than list length.");
+  }
 }

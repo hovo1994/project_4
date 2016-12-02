@@ -2,25 +2,25 @@
 #include <cstdlib>
 template <typename T>
 HeapPriorityQueue<T>::HeapPriorityQueue()
-{// constructor inserts item at position 0 of queue to account for math
+{
     _list.insert(0,T());
-}// end constructor
+}
 
 template <typename T>
-HeapPriorityQueue<T>::~HeapPriorityQueue() 
-{// destructor
+HeapPriorityQueue<T>::~HeapPriorityQueue()
+{
     // _list->clear();
 }
 
 template <typename T>
 bool HeapPriorityQueue<T>::isEmpty()
-{// determines if the queue is empty
+{
     return _heapSize == 0;
 }
 
 template <typename T>
 void HeapPriorityQueue<T>::add(const T& item)
-{// adds an item to the queue
+{
     // if list is empty initilaze list. 
     if (isEmpty())
     {
@@ -46,7 +46,6 @@ void HeapPriorityQueue<T>::add(const T& item)
         if(_list.getEntry(i) <= _list.getEntry(getParentIndex(i)))
         {
             i = getParentIndex(i);
-            return;
 
         }
         else // if greater than, swap with parent
@@ -63,11 +62,11 @@ void HeapPriorityQueue<T>::add(const T& item)
         // if less than, set i to parentNodeIndex
     }
     
-}// end add method
+}
 
 template <typename T>
 void HeapPriorityQueue<T>::remove()
-{// removes item from top of queue, if queue is emtpy throws logic error
+{
     if(isEmpty())
     {
         throw std::logic_error("Attempted to remove from Empty Queue");
@@ -96,7 +95,7 @@ void HeapPriorityQueue<T>::remove()
             }
             else
             {
-                // display();
+                display();
                 return;
             }
     
@@ -104,7 +103,8 @@ void HeapPriorityQueue<T>::remove()
         else
         {
             int i = 1;
-            while(!isLeaf(i))
+            bool notleaf = true;   
+            while(notleaf)
             {
                 
                 if (_list[i] < _list[getLargestChildIndex(i)])
@@ -120,23 +120,29 @@ void HeapPriorityQueue<T>::remove()
                 }
                 else
                 {
-                    // display();
+                    display();
                     return;
                 }
+
+                notleaf = !isLeaf(i);
+
+                
+                
             }
         }
     }
-    // display();
-}// end remove method
+    // --_heapSize;
+    display();
+}
 
 template <typename T>
 T HeapPriorityQueue<T>::peek()
-{// look at root item in queue
+{
     if(isEmpty())
         throw std::logic_error("Attempted to peek at Empty Queue");
 
     return _list.getEntry(1);
-}// end peek method
+}
 
 
 // indexing methods
@@ -156,7 +162,7 @@ template <typename T>
 int HeapPriorityQueue<T>::getParentIndex(const int n)
 {
     return (n/2);
-}
+}// end indexing methods
 
 
 template <typename T>
@@ -169,7 +175,7 @@ int HeapPriorityQueue<T>::getLargestChildIndex(const int n)
     }
     
     return getLeftChildIndex(n);
-}// end indexing methods
+}
 
 
 
@@ -188,24 +194,13 @@ bool HeapPriorityQueue<T>::isLeaf(const int n)
 }
 
 
-// template <typename T>
-// void HeapPriorityQueue<T>::display()
-// {
+template <typename T>
+void HeapPriorityQueue<T>::display()
+{
 
-//     std::cout<<"Heap Size: "<<_heapSize<<std::endl;
-//     for (int i = 0; i < _list.getLength(); ++i)
-//     {
-//         std::cout<<_list.getEntry(i)<<std::endl;
-//     }
-// }
-
-// template <typename T>
-// void HeapPriorityQueue<T>::display(std::string desc)
-// {
-//     std::cout<<"Desc" << desc<<std::endl;
-//     std::cout<<"Heap Size: "<<_heapSize<<std::endl;
-//     for (int i = 0; i < _list.getLength(); ++i)
-//     {
-//         std::cout<<_list.getEntry(i)<<std::endl;
-//     }
-// }
+    std::cout<<"Heap Size: "<<_heapSize<<std::endl;
+    for (int i = 0; i < _list.getLength(); ++i)
+    {
+        std::cout<<_list.getEntry(i)<<std::endl;
+    }
+}

@@ -22,6 +22,8 @@ public:
   // copy assignment
   DynamicArrayList& operator=(DynamicArrayList x);
 
+  T operator[](std::size_t index) const;
+
   void swap(DynamicArrayList& x, DynamicArrayList& y);
   
   // determine if a list is empty
